@@ -10,6 +10,7 @@ module.exports = {
         const storage = multer.diskStorage({
             destination: (req, file, cb) => {
                 const dir = defaultPath + destination;
+                //cek file sistem dalam direktori ada atau tidak
                 if (fs.existsSync(dir)) {
                     console.log(dir, "exists")
                     cb(null, dir);

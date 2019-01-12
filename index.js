@@ -20,6 +20,7 @@ var app = express({defaultErrorHandler:false});
 app.use(cors())
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
+//supaya bisa akses folder public
 app.use(express.static('public'))
 
 app.get('/', (req,res) => {
@@ -52,6 +53,7 @@ app.post('/addbrand', (req,res) => {
             console.log(imagePath)
 
             console.log(req.body.data)
+            //balikin lg format ke javascript
             const data = JSON.parse(req.body.data);
             console.log(data)
             data.image = imagePath;
@@ -60,6 +62,7 @@ app.post('/addbrand', (req,res) => {
             conn.query(sql, data, (err, results) => {
                 if(err) {
                     console.log(err.message)
+                    //hapus image di api
                     fs.unlinkSync('./public' + imagePath);
                     return res.status(500).json({ message: "There's an error on the server. Please contact the administrator.", error: err.message });
                 }
